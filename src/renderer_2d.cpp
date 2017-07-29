@@ -1,10 +1,11 @@
 namespace grndr {
 
-void Renderer2D::setup()
+bool Renderer2D::setup()
 {
   this->shdr.create_program();
 
-  this->shdr.compile_vert(R"(
+  bool err;
+  err = this->shdr.compile_vert(R"(
 #version 100
 
 precision mediump float;
@@ -19,9 +20,11 @@ void main()
 {
   gl_Position = projection * vec4(pos, 0.0, 1.0);
   vColor = vec4(1.0, 0.0, 0.0, 1.0);
-}
-  )");
-  this->shdr.compile_frag(R"(
+})");
+
+  if (!err) { return false; }
+
+  err = this->shdr.compile_frag(R"(
 #version 100
 
 precision mediump float;
@@ -31,16 +34,21 @@ varying vec4 vColor;
 void main()
 {
   gl_FragColor = vColor;
-}
-  )");
+})");
+
+  if (!err) { return false; }
+
   this->shdr.bind_attr(0, "pos");
   //this->shdr.bind_attr(1, "uv");
   //this->shdr.bind_attr(2, "color");
-  this->shdr.link();
+  if (!this->shdr.link()) { return false; }
 
   this->shdr.use();
   this->projection_location = this->shdr.get_uniform_location("projection");
+  if (this->projection_location < 0) { return false; }
   glUseProgram(0);
+
+  return true;
 }
 
 void Renderer2D::set_ortho(float left, float right, float bottom, float top, float z_near, float z_far)

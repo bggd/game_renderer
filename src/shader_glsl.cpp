@@ -7,7 +7,7 @@ shader_compile(ShaderGLSL* s, GLenum type, const char* src)
   glShaderSource(shdr, 1, &src, NULL);
   glCompileShader(shdr);
 
-  GLint status;
+  GLint status = GL_TRUE;
   glGetShaderiv(shdr, GL_COMPILE_STATUS, &status);
 
   if (status == GL_FALSE) {
@@ -67,7 +67,7 @@ bool ShaderGLSL::link()
   glAttachShader(this->prog, this->frag);
   glLinkProgram(this->prog);
 
-  GLint status;
+  GLint status = GL_TRUE;
   glGetProgramiv(this->prog, GL_LINK_STATUS, &status);
 
   if (status == GL_FALSE) {
