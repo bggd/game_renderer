@@ -5,7 +5,7 @@ struct Renderer2D {
   grndr::ShaderGLSL shdr;
   GLint projection_location;
 
-  bool setup();
+  bool setup(bool gles);
 
   void set_ortho(float left, float right, float bottom, float top, float z_near, float z_far);
 

@@ -1,12 +1,6 @@
 namespace grndr {
 
-bool Renderer2D::setup()
-{
-  this->shdr.create_program();
-
-  bool err;
-  err = this->shdr.compile_vert(R"(
-#version 100
+static const char* gles2_vert = R"(#version 100
 
 precision mediump float;
 
@@ -19,13 +13,11 @@ varying vec4 vColor;
 void main()
 {
   gl_Position = projection * vec4(pos, 0.0, 1.0);
-  vColor = vec4(1.0, 0.0, 0.0, 1.0);
-})");
+  vColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
+)";
 
-  if (!err) { return false; }
-
-  err = this->shdr.compile_frag(R"(
-#version 100
+static const char* gles2_frag = R"(#version 100
 
 precision mediump float;
 
@@ -34,13 +26,48 @@ varying vec4 vColor;
 void main()
 {
   gl_FragColor = vColor;
-})");
+}
+)";
 
-  if (!err) { return false; }
+static const char* gl33_vert = R"(#version 330
+
+uniform mat4 projection;
+
+in vec2 pos;
+
+out vec4 vColor;
+
+void main()
+{
+  gl_Position = projection * vec4(pos, 0.0, 1.0);
+  vColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
+)";
+
+static const char* gl33_frag = R"(#version 330
+
+in vec4 vColor;
+
+out vec4 FragColor;
+
+void main()
+{
+  FragColor = vColor;
+}
+)";
+
+bool Renderer2D::setup(bool gles)
+{
+  this->shdr.create_program();
+
+  if (!this->shdr.compile_vert(gles ? gles2_vert : gl33_vert)) { return false; }
+
+  if (!this->shdr.compile_frag(gles ? gles2_frag : gl33_frag)) { return false; }
 
   this->shdr.bind_attr(0, "pos");
   //this->shdr.bind_attr(1, "uv");
   //this->shdr.bind_attr(2, "color");
+  if (!gles) {this->shdr.bind_frag_data_location(0, "FragColor"); }
   if (!this->shdr.link()) { return false; }
 
   this->shdr.use();
@@ -70,7 +97,7 @@ void Renderer2D::begin_pass()
 
 void Renderer2D::end_pass()
 {
-  glDisableVertexAttribArray(0);
+  //glDisableVertexAttribArray(0);
   //glDisableVertexAttribArray(1);
   //glDisableVertexAttribArray(2);
   glUseProgram(0);
