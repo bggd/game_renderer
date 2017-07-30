@@ -56,10 +56,10 @@ void ShaderGLSL::bind_attr(GLuint location, const char* name)
   glBindAttribLocation(this->prog, location, name);
 }
 
-//void ShaderGLSL::bind_frag_data_location(GLuint color_number, const char* name)
-//{
-//  glBindFragDataLocation(this->prog, color_number, name);
-//}
+void ShaderGLSL::bind_frag_data_location(GLuint color_number, const char* name)
+{
+  glBindFragDataLocation(this->prog, color_number, name);
+}
 
 bool ShaderGLSL::link()
 {
