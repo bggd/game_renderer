@@ -67,7 +67,7 @@ bool Renderer2D::setup(bool gles)
   this->shdr.bind_attr(0, "pos");
   //this->shdr.bind_attr(1, "uv");
   //this->shdr.bind_attr(2, "color");
-  if (!gles) {this->shdr.bind_frag_data_location(0, "FragColor"); }
+  if (!gles) { this->shdr.bind_frag_data_location(0, "FragColor"); }
   if (!this->shdr.link()) { return false; }
 
   this->shdr.use();
@@ -97,7 +97,7 @@ void Renderer2D::begin_pass()
 
 void Renderer2D::end_pass()
 {
-  //glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(0);
   //glDisableVertexAttribArray(1);
   //glDisableVertexAttribArray(2);
   glUseProgram(0);
