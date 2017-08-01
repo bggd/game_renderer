@@ -7,13 +7,14 @@ precision mediump float;
 uniform mat4 projection;
 
 attribute vec2 pos;
+attribute vec2 uv;
 
-varying vec4 vColor;
+varying vec2 vUV;
 
 void main()
 {
   gl_Position = projection * vec4(pos, 0.0, 1.0);
-  vColor = vec4(1.0, 1.0, 1.0, 1.0);
+  vUV = uv;
 }
 )";
 
@@ -21,11 +22,13 @@ static const char* gles2_frag = R"(#version 100
 
 precision mediump float;
 
-varying vec4 vColor;
+uniform sampler2D tex;
+
+varying vec2 vUV;
 
 void main()
 {
-  gl_FragColor = vColor;
+  gl_FragColor = texture2D(tex, vUV);
 }
 )";
 
@@ -34,25 +37,26 @@ static const char* gl33_vert = R"(#version 330
 uniform mat4 projection;
 
 in vec2 pos;
+in vec2 uv;
 
-out vec4 vColor;
+out vec2 vUV;
 
 void main()
 {
   gl_Position = projection * vec4(pos, 0.0, 1.0);
-  vColor = vec4(1.0, 1.0, 1.0, 1.0);
+  vUV = uv;
 }
 )";
 
 static const char* gl33_frag = R"(#version 330
 
-in vec4 vColor;
+in vec2 vUV;
 
 out vec4 FragColor;
 
 void main()
 {
-  FragColor = vColor;
+  FragColor = texture(tex, vUV);
 }
 )";
 
@@ -65,7 +69,7 @@ bool Renderer2D::setup(bool gles)
   if (!this->shdr.compile_frag(gles ? gles2_frag : gl33_frag)) { return false; }
 
   this->shdr.bind_attr(0, "pos");
-  //this->shdr.bind_attr(1, "uv");
+  this->shdr.bind_attr(1, "uv");
   //this->shdr.bind_attr(2, "color");
   if (!gles) { this->shdr.bind_frag_data_location(0, "FragColor"); }
   if (!this->shdr.link()) { return false; }
@@ -91,14 +95,14 @@ void Renderer2D::begin_pass()
 {
   this->shdr.use();
   glEnableVertexAttribArray(0);
-  //glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(1);
   //glEnableVertexAttribArray(2);
 }
 
 void Renderer2D::end_pass()
 {
   glDisableVertexAttribArray(0);
-  //glDisableVertexAttribArray(1);
+  glDisableVertexAttribArray(1);
   //glDisableVertexAttribArray(2);
   glUseProgram(0);
 }

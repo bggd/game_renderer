@@ -3,6 +3,8 @@ namespace grndr {
 struct Texture2D {
 
   GLuint id;
+  GLint internal_format_rgb8;
+  GLint internal_format_rgba8;
 
   void bind();
 
