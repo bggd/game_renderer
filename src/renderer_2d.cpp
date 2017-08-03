@@ -50,6 +50,8 @@ void main()
 
 static const char* gl33_frag = R"(#version 330
 
+uniform sampler2D tex;
+
 in vec2 vUV;
 
 out vec4 FragColor;
