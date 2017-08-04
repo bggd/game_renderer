@@ -6,6 +6,8 @@ struct Texture2D {
   GLint internal_format_rgb8;
   GLint internal_format_rgba8;
 
+  static void bind_zero();
+
   void bind();
 
   void tex_parameteri(GLenum pname, GLint param);

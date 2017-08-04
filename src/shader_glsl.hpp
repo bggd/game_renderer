@@ -6,6 +6,8 @@ struct ShaderGLSL {
   GLuint frag;
   GLuint prog;
 
+  static void use_zero();
+
   void create_program();
   void delete_program();
 

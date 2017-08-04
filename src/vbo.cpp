@@ -1,5 +1,10 @@
 namespace grndr {
 
+void VBO::bind_zero()
+{
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void VBO::bind()
 {
   glBindBuffer(GL_ARRAY_BUFFER, this->id);

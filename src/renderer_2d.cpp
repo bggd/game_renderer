@@ -79,7 +79,7 @@ bool Renderer2D::setup(bool gles)
   this->shdr.use();
   this->projection_location = this->shdr.get_uniform_location("projection");
   if (this->projection_location < 0) { return false; }
-  glUseProgram(0);
+  ShaderGLSL::use_zero();
 
   return true;
 }
@@ -106,7 +106,7 @@ void Renderer2D::end_pass()
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
   //glDisableVertexAttribArray(2);
-  glUseProgram(0);
+  ShaderGLSL::use_zero();
 }
 
 } // namespace grndr

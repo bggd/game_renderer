@@ -1,5 +1,10 @@
 namespace grndr {
 
+void Texture2D::bind_zero()
+{
+  glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 void Texture2D::bind()
 {
   glBindTexture(GL_TEXTURE_2D, this->id);

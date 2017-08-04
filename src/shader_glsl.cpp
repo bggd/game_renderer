@@ -1,5 +1,10 @@
 namespace grndr {
 
+void ShaderGLSL::use_zero()
+{
+  glUseProgram(0);
+}
+
 static bool
 shader_compile(ShaderGLSL* s, GLenum type, const char* src)
 {

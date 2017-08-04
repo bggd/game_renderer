@@ -4,6 +4,8 @@ struct VBO {
 
   GLuint id;
 
+  static void bind_zero();
+
   void bind();
 
   void vertex_attrib_pointer(GLuint location, GLuint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* offset);
