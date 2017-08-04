@@ -2,7 +2,7 @@ namespace grndr {
 
 struct Renderer2D {
 
-  grndr::ShaderGLSL shdr;
+  grndr::ShaderGLSL shader;
   GLint projection_location;
 
   bool setup(bool gles);
