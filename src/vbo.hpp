@@ -4,7 +4,12 @@ struct VBO {
 
   GLuint id;
 
+  static void gen_buffers(GLsizei n, GLuint* buffers);
+  static void delete_buffers(GLsizei n, const GLuint* buffers);
   static void bind_zero();
+
+  void create();
+  void destroy();
 
   void bind();
 

@@ -1,8 +1,29 @@
 namespace grndr {
 
+void VBO::gen_buffers(GLsizei n, GLuint* buffers)
+{
+  glGenBuffers(n, buffers);
+}
+
+void VBO::delete_buffers(GLsizei n, const GLuint* buffers)
+{
+  glDeleteBuffers(n, buffers);
+}
+
+
 void VBO::bind_zero()
 {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void VBO::create()
+{
+  VBO::gen_buffers(1, &this->id);
+}
+
+void VBO::destroy()
+{
+  VBO::delete_buffers(1, &this->id);
 }
 
 void VBO::bind()
