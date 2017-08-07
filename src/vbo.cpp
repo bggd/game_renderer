@@ -26,16 +26,20 @@ void VBO::draw_triangles(GLint first, GLsizei count)
 
 void VBO::create()
 {
+  assert(this->id == 0);
   VBO::gen_buffers(1, &this->id);
 }
 
 void VBO::destroy()
 {
+  assert(this->id != 0);
+  this->id = 0;
   VBO::delete_buffers(1, &this->id);
 }
 
 void VBO::bind()
 {
+  assert(this->id != 0);
   VBO::current_id = this->id;
   glBindBuffer(GL_ARRAY_BUFFER, this->id);
 }

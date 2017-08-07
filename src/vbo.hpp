@@ -2,7 +2,7 @@ namespace grndr {
 
 struct VBO {
 
-  GLuint id;
+  GLuint id = 0;
 
   static GLuint current_id;
 

@@ -20,16 +20,20 @@ void Texture2D::bind_zero()
 
 void Texture2D::create()
 {
+  assert(this->id == 0);
   Texture2D::gen_textures(1, &this->id);
 }
 
 void Texture2D::destroy()
 {
+  assert(this->id != 0);
+  this->id = 0;
   Texture2D::delete_textures(1, &this->id);
 }
 
 void Texture2D::bind()
 {
+  assert(this->id != 0);
   Texture2D::current_id = this->id;
   glBindTexture(GL_TEXTURE_2D, this->id);
 }
