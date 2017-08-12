@@ -9,7 +9,12 @@ void Renderer::set_uniform_matrix4(const char* name, const GLfloat* elements)
 {
 }
 
-void Renderer::draw_triangles(GLint first, GLsizei count)
+void Renderer::set_vbo(VBO vbo)
+{
+  this->vbo = vbo;
+}
+
+void Renderer::draw_triangles(uint16_t first, uint16_t count)
 {
 }
 

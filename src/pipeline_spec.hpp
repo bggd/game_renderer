@@ -12,12 +12,10 @@ struct PipelineSpec {
 
       Uniform::Type type;
       const char* name;
-
     };
 
     const char* vs;
     const char* fs;
-
   };
 
   struct VertexAttribute {
