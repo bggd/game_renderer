@@ -10,17 +10,22 @@ struct PipelineSpec {
         MAT4
       };
 
+      int32_t location;
       Uniform::Type type;
       const char* name;
+
     };
 
     const char* vs;
     const char* fs;
+    const char* glFragColor;
+    ShaderGLSL glsl;
   };
 
   struct VertexAttribute {
 
     enum class Format {
+      FLOAT2,
       FLOAT3
     };
 
@@ -34,6 +39,11 @@ struct PipelineSpec {
   std::vector<PipelineSpec::VertexAttribute> attributes;
   PipelineSpec::Shader shader;
   std::vector<PipelineSpec::Shader::Uniform> uniforms;
+  bool compiled = false;
+
+  static PipelineSpec* get_default_2d();
+
+  bool compile_shader();
 
 };
 
