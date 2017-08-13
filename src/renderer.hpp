@@ -3,7 +3,7 @@ namespace grndr {
 struct Renderer {
 
   PipelineSpec spec;
-  VBO vbo;
+  std::vector<VBO> vbo_list;
 
   void set_pipeline(const PipelineSpec& spec);
   void set_uniform_matrix4(const PipelineSpec::Shader::Uniform& u, const GLfloat* elements);

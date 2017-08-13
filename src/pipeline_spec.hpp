@@ -29,9 +29,11 @@ struct PipelineSpec {
       FLOAT3
     };
 
+    uint8_t vbo_list_idx;
+    uint8_t index;
     VertexAttribute::Format format;
-    GLboolean normalized;
-    GLsizei stride;
+    bool normalized;
+    size_t stride;
     size_t offset;
     const char* name;
   };

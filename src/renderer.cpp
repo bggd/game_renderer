@@ -21,12 +21,12 @@ void Renderer::set_uniform_matrix4(const PipelineSpec::Shader::Uniform& u, const
 
 void Renderer::set_vbo(VBO vbo)
 {
-  this->vbo = vbo;
+  this->vbo_list.push_back(vbo);
 }
 
 void Renderer::draw_triangles(uint16_t first, uint16_t count)
 {
-  this->vbo.bind();
+  uint32_t prev = -1;
   for (uint32_t i=0; i < this->spec.attributes.size(); ++i) {
     const PipelineSpec::VertexAttribute& attr = this->spec.attributes[i];
     GLint size;
@@ -42,7 +42,9 @@ void Renderer::draw_triangles(uint16_t first, uint16_t count)
         break;
       default: abort();
     }
-    this->vbo.vertex_attrib_pointer(i, size, type, attr.normalized, attr.stride, (const GLvoid*)attr.offset);
+    if (attr.vbo_list_idx != prev) { this->vbo_list[attr.vbo_list_idx].bind(); }
+    this->vbo_list[attr.vbo_list_idx].vertex_attrib_pointer(attr.index, size, type, attr.normalized, attr.stride, (const GLvoid*)attr.offset);
+    prev = attr.vbo_list_idx;
   }
   VBO::draw_triangles(first, count);
 }

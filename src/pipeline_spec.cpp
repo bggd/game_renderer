@@ -7,15 +7,21 @@ PipelineSpec* PipelineSpec::get_default_2d()
   spec = new(std::nothrow) PipelineSpec;
   if (!spec) { return nullptr; }
 
+  size_t stride = sizeof(GLfloat)*4;
+
   PipelineSpec::VertexAttribute pos;
+  pos.vbo_list_idx = 0;
+  pos.index = 0;
   pos.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
-  pos.stride = sizeof(GLfloat)*4;
+  pos.stride = stride;
   pos.offset = 0;
   pos.name = "pos";
 
   PipelineSpec::VertexAttribute uv;
+  uv.vbo_list_idx = 0;
+  uv.index = 1;
   uv.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
-  uv.stride = sizeof(GLfloat)*4;
+  uv.stride = stride;
   uv.offset = sizeof(GLfloat)*2;
   uv.name = "uv";
 
@@ -42,7 +48,7 @@ bool PipelineSpec::compile_shader()
 
   for (uint32_t i=0; i < this->attributes.size(); ++i) {
     const PipelineSpec::VertexAttribute& attr = this->attributes[i];
-    this->shader.glsl.bind_attr(i, attr.name);
+    this->shader.glsl.bind_attr(attr.index, attr.name);
   }
 
   this->shader.glsl.bind_frag_data_location(0, this->shader.glFragColor);
