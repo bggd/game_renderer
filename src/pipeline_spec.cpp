@@ -46,8 +46,7 @@ bool PipelineSpec::compile_shader()
   if (!this->shader.glsl.compile_vert(this->shader.vs)) { return false; }
   if (!this->shader.glsl.compile_frag(this->shader.fs)) { return false; }
 
-  for (uint32_t i=0; i < this->attributes.size(); ++i) {
-    const PipelineSpec::VertexAttribute& attr = this->attributes[i];
+  for (const PipelineSpec::VertexAttribute& attr : this->attributes) {
     this->shader.glsl.bind_attr(attr.index, attr.name);
   }
 
@@ -56,8 +55,7 @@ bool PipelineSpec::compile_shader()
   if (!this->shader.glsl.link()) { return false; }
 
   this->shader.glsl.use();
-  for (uint32_t i=0; i < this->uniforms.size(); ++i) {
-    PipelineSpec::Shader::Uniform& u = this->uniforms[i];
+  for (PipelineSpec::Shader::Uniform& u : this->uniforms) {
     u.location = this->shader.glsl.get_uniform_location(u.name);
     if (u.location < 0) { ShaderGLSL::use_zero(); return false; }
   }

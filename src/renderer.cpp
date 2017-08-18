@@ -21,15 +21,15 @@ void Renderer::set_uniform_matrix4(const PipelineSpec::Shader::Uniform& u, const
 
 void Renderer::set_vbo(uint8_t idx, VBO vbo)
 {
-  if (idx+1 > this->vbo_list.capacity()) { this->vbo_list.reserve(idx); }
+  size_t size = idx+1;
+  if (size > this->vbo_list.capacity()) { this->vbo_list.reserve(size); }
   this->vbo_list[idx] = vbo;
 }
 
 void Renderer::draw_triangles(uint16_t first, uint16_t count)
 {
   uint32_t prev = -1;
-  for (uint32_t i=0; i < this->spec.attributes.size(); ++i) {
-    const PipelineSpec::VertexAttribute& attr = this->spec.attributes[i];
+  for (const PipelineSpec::VertexAttribute& attr : this->spec.attributes) {
     GLint size;
     GLenum type;
     switch (attr.format) {
