@@ -1,4 +1,4 @@
-namespace grndr {
+namespace grndr { namespace ogl {
 
 GLuint Texture2D::current_id = 0;
 
@@ -57,4 +57,4 @@ void Texture2D::upload_rgba8(int width, int height, const unsigned char* image)
   glTexImage2D(GL_TEXTURE_2D, 0, this->internal_format_rgba8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 }
 
-} // namespace grndr
+}} // namespace grndr::ogl

@@ -1,4 +1,4 @@
-namespace grndr {
+namespace grndr { namespace ogl {
 
 struct Texture2D {
 
@@ -25,4 +25,4 @@ struct Texture2D {
 
 };
 
-} // namespace grndr
+}} // namespace grndr::ogl

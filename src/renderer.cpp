@@ -19,7 +19,7 @@ void Renderer::set_uniform_matrix4(const PipelineSpec::Shader::Uniform& u, const
   this->spec.shader.glsl.uniform_mat4(u.location, 1, elements);
 }
 
-void Renderer::set_vbo(uint8_t idx, VBO vbo)
+void Renderer::set_vbo(uint8_t idx, ogl::VBO vbo)
 {
   size_t size = idx+1;
   if (size > this->vbo_list.capacity()) { this->vbo_list.reserve(size); }
@@ -50,7 +50,7 @@ void Renderer::draw_triangles(uint16_t first, uint16_t count)
     this->vbo_list[attr.vbo_list_idx].vertex_attrib_pointer(attr.index, size, type, attr.normalized, attr.stride, (const GLvoid*)attr.offset);
     prev = attr.vbo_list_idx;
   }
-  VBO::draw_triangles(first, count);
+  ogl::VBO::draw_triangles(first, count);
 }
 
 } // namespace grndr

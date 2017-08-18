@@ -1,4 +1,4 @@
-namespace grndr {
+namespace grndr { namespace ogl {
 
 struct VBO {
 
@@ -21,4 +21,4 @@ struct VBO {
 
 };
 
-} // namespace grndr
+}} // namespace grndr::ogl

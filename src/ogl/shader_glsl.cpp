@@ -1,4 +1,4 @@
-namespace grndr {
+namespace grndr { namespace ogl {
 
 void ShaderGLSL::use_zero()
 {
@@ -113,4 +113,4 @@ void ShaderGLSL::uniform_mat4(GLint location, GLsizei count, const GLfloat* v)
   glUniformMatrix4fv(location, count, GL_FALSE, v);
 }
 
-}
+}} // namespace grndr::ogl

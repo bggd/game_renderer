@@ -57,9 +57,9 @@ bool PipelineSpec::compile_shader()
   this->shader.glsl.use();
   for (PipelineSpec::Shader::Uniform& u : this->uniforms) {
     u.location = this->shader.glsl.get_uniform_location(u.name);
-    if (u.location < 0) { ShaderGLSL::use_zero(); return false; }
+    if (u.location < 0) { ogl::ShaderGLSL::use_zero(); return false; }
   }
-  ShaderGLSL::use_zero();
+  ogl::ShaderGLSL::use_zero();
 
   this->compiled = true;
 

@@ -1,4 +1,4 @@
-namespace grndr {
+namespace grndr { namespace ogl {
 
 GLuint VBO::current_id = 0;
 
@@ -57,4 +57,4 @@ void VBO::buffer_data(size_t size, const void* vertices, GLenum usage)
   glBufferData(GL_ARRAY_BUFFER, size, vertices, usage);
 }
 
-} // namespace grndr
+}} // namespace grndr::ogl

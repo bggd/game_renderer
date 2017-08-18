@@ -1,4 +1,4 @@
-namespace grndr {
+namespace grndr { namespace ogl {
 
 struct ShaderGLSL {
 
@@ -26,4 +26,4 @@ struct ShaderGLSL {
 
 };
 
-} // namespace gshdr
+}} // namespace gshdr::ogl

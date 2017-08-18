@@ -19,7 +19,7 @@ struct PipelineSpec {
     const char* vs;
     const char* fs;
     const char* glFragColor;
-    ShaderGLSL glsl;
+    ogl::ShaderGLSL glsl;
   };
 
   struct VertexAttribute {
