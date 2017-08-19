@@ -9,6 +9,7 @@ void Renderer::set_pipeline(const PipelineSpec& spec)
   if (this->spec.compiled == false) {
     assert(this->spec.compile_shader());
   }
+  this->spec.shader.glsl.use();
   for (uint32_t i=0; i < this->spec.attributes.size(); ++i) {
     glEnableVertexAttribArray(i);
   }
@@ -44,7 +45,7 @@ void Renderer::draw_triangles(uint16_t first, uint16_t count)
       default: abort();
     }
     if (attr.vbo_list_idx != prev) {
-      assert(this->vbo_list.size() > attr.vbo_list_idx);
+      assert(this->vbo_list.size() >= attr.vbo_list_idx);
       this->vbo_list[attr.vbo_list_idx].bind();
     }
     this->vbo_list[attr.vbo_list_idx].vertex_attrib_pointer(attr.index, size, type, attr.normalized, attr.stride, (const GLvoid*)attr.offset);

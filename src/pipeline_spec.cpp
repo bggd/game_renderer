@@ -15,7 +15,8 @@ PipelineSpec* PipelineSpec::get_default_2d()
   pos.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   pos.stride = stride;
   pos.offset = 0;
-  pos.name = "pos";
+  static char cpos[] = "pos";
+  pos.name = cpos;
 
   PipelineSpec::VertexAttribute uv;
   uv.vbo_list_idx = 0;
@@ -23,18 +24,74 @@ PipelineSpec* PipelineSpec::get_default_2d()
   uv.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   uv.stride = stride;
   uv.offset = sizeof(GLfloat)*2;
-  uv.name = "uv";
+  static char cuv[] = "uv";
+  uv.name = cuv;
 
   spec->attributes.push_back(pos);
   spec->attributes.push_back(uv);
 
-  spec->shader.vs = "";
-  spec->shader.fs = "";
-  spec->shader.glFragColor = "FragColor";
+  static char vs[] = R"(#version XXX
+#ifdef GL_ES
+precision mediump float;
+#else
+#define attribute in
+#define varying out
+#endif
+
+uniform mat4 u_proj;
+
+attribute vec2 pos;
+attribute vec2 uv;
+
+varying vec2 v_uv;
+
+void main()
+{
+  gl_Position = u_proj * vec4(pos, 0.0, 1.0);
+  v_uv = uv;
+}
+)";
+
+  static char fs[] = R"(#version XXX
+#ifdef GL_ES
+precision mediump float;
+#else
+out vec4 FragColor;
+#define varying in
+#define texture2D texture
+#define gl_FragColor FragColor
+#endif
+
+uniform sampler2D u_tex;
+
+varying vec2 v_uv;
+
+void main()
+{
+  gl_FragColor = texture2D(u_tex, v_uv);
+}
+)";
+
+  if (ogl::Info::gles) {
+    fs[9] = vs[9] = '1';
+    fs[10] = vs[10] = '0';
+    fs[11] = vs[11] = '0';
+  }
+  else {
+    fs[9] = vs[9] = '3';
+    fs[10] = vs[10] = '3';
+    fs[11] = vs[11] = '0';
+  }
+
+  spec->shader.vs = vs;
+  spec->shader.fs = fs;
+  static char FragColor[] = "FragColor";
+  spec->shader.glFragColor = FragColor;
 
   PipelineSpec::Shader::Uniform proj;
   proj.type = PipelineSpec::Shader::Uniform::Type::MAT4;
-  proj.name = "projection";
+  static char u_proj[] = "u_proj";
+  proj.name = u_proj;
 
   spec->uniforms.push_back(proj);
 
@@ -43,6 +100,8 @@ PipelineSpec* PipelineSpec::get_default_2d()
 
 bool PipelineSpec::compile_shader()
 {
+  this->shader.glsl.create_program();
+
   if (!this->shader.glsl.compile_vert(this->shader.vs)) { return false; }
   if (!this->shader.glsl.compile_frag(this->shader.fs)) { return false; }
 
@@ -50,7 +109,9 @@ bool PipelineSpec::compile_shader()
     this->shader.glsl.bind_attr(attr.index, attr.name);
   }
 
-  this->shader.glsl.bind_frag_data_location(0, this->shader.glFragColor);
+  if (ogl::Info::gles) {
+    this->shader.glsl.bind_frag_data_location(0, this->shader.glFragColor);
+  }
 
   if (!this->shader.glsl.link()) { return false; }
 
