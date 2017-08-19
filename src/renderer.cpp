@@ -29,7 +29,7 @@ void Renderer::set_vbo(uint8_t idx, ogl::VBO vbo)
 
 void Renderer::draw_triangles(uint16_t first, uint16_t count)
 {
-  uint32_t prev = -1;
+  int32_t prev = -1;
   for (const PipelineSpec::VertexAttribute& attr : this->spec.attributes) {
     GLint size;
     GLenum type;
