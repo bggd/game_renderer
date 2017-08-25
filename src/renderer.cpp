@@ -5,10 +5,10 @@ void Renderer::set_pipeline(const PipelineSpec& spec)
   for (uint32_t i=0; i < this->spec.attributes.size(); ++i) {
     glDisableVertexAttribArray(i);
   }
+
   this->spec = spec;
-  if (this->spec.compiled == false) {
-    assert(this->spec.compile_shader());
-  }
+  assert(this->spec.compiled);
+
   this->spec.shader.glsl.use();
   for (uint32_t i=0; i < this->spec.attributes.size(); ++i) {
     glEnableVertexAttribArray(i);
