@@ -109,7 +109,7 @@ bool PipelineSpec::compile_shader()
     this->shader.glsl.bind_attr(attr.index, attr.name);
   }
 
-  if (ogl::Info::gles) {
+  if (!ogl::Info::gles) {
     this->shader.glsl.bind_frag_data_location(0, this->shader.glFragColor);
   }
 
