@@ -44,6 +44,7 @@ struct PipelineSpec {
   bool compiled = false;
 
   static PipelineSpec* get_default_2d();
+  static PipelineSpec* get_default_3d();
 
   bool compile_shader();
 
