@@ -27,7 +27,12 @@ void Renderer::set_vbo(uint8_t idx, ogl::VBO vbo)
   this->vbo_list[idx] = vbo;
 }
 
-void Renderer::draw_triangles(uint16_t first, uint16_t count)
+void Renderer::set_ibo(ogl::IBO ibo)
+{
+  this->ibo = ibo;
+}
+
+void Renderer::draw_triangles(uint16_t first, uint16_t count, bool use_ibo)
 {
   int32_t prev = -1;
   for (const PipelineSpec::VertexAttribute& attr : this->spec.attributes) {
@@ -51,7 +56,14 @@ void Renderer::draw_triangles(uint16_t first, uint16_t count)
     this->vbo_list[attr.vbo_list_idx].vertex_attrib_pointer(attr.index, size, type, attr.normalized, attr.stride, (const GLvoid*)attr.offset);
     prev = attr.vbo_list_idx;
   }
-  ogl::VBO::draw_triangles(first, count);
+  
+  if (use_ibo) {
+    this->ibo.bind();
+    ogl::IBO::draw_triangles(count);
+  }
+  else {
+    ogl::VBO::draw_triangles(first, count);
+  }
 }
 
 } // namespace grndr
