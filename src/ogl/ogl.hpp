@@ -9,15 +9,6 @@ struct Info {
 
 };
 
-bool Info::gles = false;
-uint8_t Info::major = 0;
-uint8_t Info::minor = 0;
-
-void make_current(bool gles, uint8_t major, uint8_t minor)
-{
-  Info::gles = gles;
-  Info::major = major;
-  Info::minor = minor;
-}
+void make_current(bool gles, uint8_t major, uint8_t minor);
 
 }} // namespace grndr::ogl

@@ -12,6 +12,7 @@
 
 
 #ifdef GAME_RENDERER_IMPLEMENTATION
+#include "ogl/ogl.cpp"
 #include "ogl/vbo.cpp"
 #include "ogl/ibo.cpp"
 #include "ogl/texture_2d.cpp"
