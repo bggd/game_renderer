@@ -15,8 +15,7 @@ PipelineSpec* PipelineSpec::get_default_2d()
   pos.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   pos.stride = stride;
   pos.offset = 0;
-  static char cpos[] = "pos";
-  pos.name = cpos;
+  pos.name = "pos";
 
   PipelineSpec::VertexAttribute uv;
   uv.vbo_list_idx = 0;
@@ -24,13 +23,12 @@ PipelineSpec* PipelineSpec::get_default_2d()
   uv.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   uv.stride = stride;
   uv.offset = sizeof(GLfloat)*2;
-  static char cuv[] = "uv";
-  uv.name = cuv;
+  uv.name = "uv";
 
   spec->attributes.push_back(pos);
   spec->attributes.push_back(uv);
 
-  static char vs[] = R"(#version XXX
+  char vs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
@@ -52,7 +50,7 @@ void main()
 }
 )";
 
-  static char fs[] = R"(#version XXX
+  char fs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
@@ -85,13 +83,11 @@ void main()
 
   spec->shader.vs = vs;
   spec->shader.fs = fs;
-  static char FragColor[] = "FragColor";
-  spec->shader.glFragColor = FragColor;
+  spec->shader.glFragColor = "FragColor";
 
   PipelineSpec::Shader::Uniform proj;
   proj.type = PipelineSpec::Shader::Uniform::Type::MAT4;
-  static char u_proj[] = "u_proj";
-  proj.name = u_proj;
+  proj.name = "u_proj";
 
   spec->uniforms.push_back(proj);
 
@@ -113,8 +109,7 @@ PipelineSpec* PipelineSpec::get_default_3d()
   pos.format = PipelineSpec::VertexAttribute::Format::FLOAT3;
   pos.stride = stride;
   pos.offset = 0;
-  static char cpos[] = "pos";
-  pos.name = cpos;
+  pos.name = "pos";
 
   PipelineSpec::VertexAttribute uv;
   uv.vbo_list_idx = 0;
@@ -122,13 +117,12 @@ PipelineSpec* PipelineSpec::get_default_3d()
   uv.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   uv.stride = stride;
   uv.offset = sizeof(GLfloat)*3;
-  static char cuv[] = "uv";
-  uv.name = cuv;
+  uv.name = "uv";
 
   spec->attributes.push_back(pos);
   spec->attributes.push_back(uv);
 
-  static char vs[] = R"(#version XXX
+  char vs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
@@ -150,7 +144,7 @@ void main()
 }
 )";
 
-  static char fs[] = R"(#version XXX
+  char fs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
@@ -183,13 +177,11 @@ void main()
 
   spec->shader.vs = vs;
   spec->shader.fs = fs;
-  static char FragColor[] = "FragColor";
-  spec->shader.glFragColor = FragColor;
+  spec->shader.glFragColor = "FragColor";
 
   PipelineSpec::Shader::Uniform proj;
   proj.type = PipelineSpec::Shader::Uniform::Type::MAT4;
-  static char u_proj[] = "u_MVP";
-  proj.name = u_proj;
+  proj.name = "u_MVP";
 
   spec->uniforms.push_back(proj);
 
