@@ -28,7 +28,7 @@ PipelineSpec* PipelineSpec::get_default_2d()
   spec->attributes.push_back(pos);
   spec->attributes.push_back(uv);
 
-  char vs[] = R"(#version XXX
+  static char vs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
@@ -50,7 +50,7 @@ void main()
 }
 )";
 
-  char fs[] = R"(#version XXX
+  static char fs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
@@ -122,7 +122,7 @@ PipelineSpec* PipelineSpec::get_default_3d()
   spec->attributes.push_back(pos);
   spec->attributes.push_back(uv);
 
-  char vs[] = R"(#version XXX
+  static char vs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
@@ -144,7 +144,7 @@ void main()
 }
 )";
 
-  char fs[] = R"(#version XXX
+  static char fs[] = R"(#version XXX
 #ifdef GL_ES
 precision mediump float;
 #else
