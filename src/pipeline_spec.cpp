@@ -2,10 +2,7 @@ namespace grndr {
 
 PipelineSpec* PipelineSpec::get_default_2d()
 {
-  PipelineSpec* spec;
-
-  spec = new(std::nothrow) PipelineSpec;
-  if (!spec) { return nullptr; }
+  static PipelineSpec spec;
 
   size_t stride = sizeof(GLfloat)*4;
 
@@ -25,8 +22,8 @@ PipelineSpec* PipelineSpec::get_default_2d()
   uv.offset = sizeof(GLfloat)*2;
   uv.name = "uv";
 
-  spec->attributes.push_back(pos);
-  spec->attributes.push_back(uv);
+  spec.attributes.push_back(pos);
+  spec.attributes.push_back(uv);
 
   static char vs[] = R"(#version XXX
 #ifdef GL_ES
@@ -81,25 +78,22 @@ void main()
     fs[11] = vs[11] = '0';
   }
 
-  spec->shader.vs = vs;
-  spec->shader.fs = fs;
-  spec->shader.glFragColor = "FragColor";
+  spec.shader.vs = vs;
+  spec.shader.fs = fs;
+  spec.shader.glFragColor = "FragColor";
 
   PipelineSpec::Shader::Uniform proj;
   proj.type = PipelineSpec::Shader::Uniform::Type::MAT4;
   proj.name = "u_proj";
 
-  spec->uniforms.push_back(proj);
+  spec.uniforms.push_back(proj);
 
-  return spec;
+  return &spec;
 }
 
 PipelineSpec* PipelineSpec::get_default_3d()
 {
-  PipelineSpec* spec;
-
-  spec = new(std::nothrow) PipelineSpec;
-  if (!spec) { return nullptr; }
+  static PipelineSpec spec;
 
   size_t stride = sizeof(GLfloat)*5;
 
@@ -119,8 +113,8 @@ PipelineSpec* PipelineSpec::get_default_3d()
   uv.offset = sizeof(GLfloat)*3;
   uv.name = "uv";
 
-  spec->attributes.push_back(pos);
-  spec->attributes.push_back(uv);
+  spec.attributes.push_back(pos);
+  spec.attributes.push_back(uv);
 
   static char vs[] = R"(#version XXX
 #ifdef GL_ES
@@ -175,17 +169,17 @@ void main()
     fs[11] = vs[11] = '0';
   }
 
-  spec->shader.vs = vs;
-  spec->shader.fs = fs;
-  spec->shader.glFragColor = "FragColor";
+  spec.shader.vs = vs;
+  spec.shader.fs = fs;
+  spec.shader.glFragColor = "FragColor";
 
   PipelineSpec::Shader::Uniform proj;
   proj.type = PipelineSpec::Shader::Uniform::Type::MAT4;
   proj.name = "u_MVP";
 
-  spec->uniforms.push_back(proj);
+  spec.uniforms.push_back(proj);
 
-  return spec;
+  return &spec;
 }
 
 bool PipelineSpec::compile_shader()
