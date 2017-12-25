@@ -22,8 +22,8 @@ void IBO::create()
 void IBO::destroy()
 {
   assert(this->id != 0);
-  this->id = 0;
   VBO::delete_buffers(1, &this->id);
+  this->id = 0;
 }
 
 void IBO::bind()

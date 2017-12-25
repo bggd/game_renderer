@@ -27,8 +27,8 @@ void Texture2D::create()
 void Texture2D::destroy()
 {
   assert(this->id != 0);
-  this->id = 0;
   Texture2D::delete_textures(1, &this->id);
+  this->id = 0;
 }
 
 void Texture2D::bind()
