@@ -10,5 +10,6 @@ struct Info {
 };
 
 void make_current(bool gles, uint8_t major, uint8_t minor);
+const char* get_glsl_version(bool gles, uint8_t major, uint8_t minor);
 
 }} // namespace grndr::ogl

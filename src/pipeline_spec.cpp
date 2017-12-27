@@ -25,10 +25,12 @@ PipelineSpec* PipelineSpec::get_default_2d()
   spec.attributes.push_back(pos);
   spec.attributes.push_back(uv);
 
-  static char vs[] = R"(#version XXX
+  static char vs[] = R"(XXXXXXXXXXXXXXX
 #ifdef GL_ES
 precision mediump float;
-#else
+#endif
+
+#if __VERSION__ >= 130
 #define attribute in
 #define varying out
 #endif
@@ -47,10 +49,12 @@ void main()
 }
 )";
 
-  static char fs[] = R"(#version XXX
+  static char fs[] = R"(XXXXXXXXXXXXXXX
 #ifdef GL_ES
 precision mediump float;
-#else
+#endif
+
+#if __VERSION__ >= 130
 out vec4 FragColor;
 #define varying in
 #define texture2D texture
@@ -67,15 +71,11 @@ void main()
 }
 )";
 
-  if (ogl::Info::gles) {
-    fs[9] = vs[9] = '1';
-    fs[10] = vs[10] = '0';
-    fs[11] = vs[11] = '0';
-  }
-  else {
-    fs[9] = vs[9] = '3';
-    fs[10] = vs[10] = '3';
-    fs[11] = vs[11] = '0';
+  const char* version = ogl::get_glsl_version(ogl::Info::gles, ogl::Info::major, ogl::Info::minor);
+  assert(version);
+
+  for (uint8_t i=0; i < 15; ++i) {
+    fs[i] = vs[i] = version[i];
   }
 
   spec.shader.vs = vs;
@@ -116,10 +116,12 @@ PipelineSpec* PipelineSpec::get_default_3d()
   spec.attributes.push_back(pos);
   spec.attributes.push_back(uv);
 
-  static char vs[] = R"(#version XXX
+  static char vs[] = R"(XXXXXXXXXXXXXXX
 #ifdef GL_ES
 precision mediump float;
-#else
+#endif
+
+#if __VERSION__ >= 130
 #define attribute in
 #define varying out
 #endif
@@ -138,10 +140,12 @@ void main()
 }
 )";
 
-  static char fs[] = R"(#version XXX
+  static char fs[] = R"(XXXXXXXXXXXXXXX
 #ifdef GL_ES
 precision mediump float;
-#else
+#endif
+
+#if __VERSION__ >= 130
 out vec4 FragColor;
 #define varying in
 #define texture2D texture
@@ -158,15 +162,11 @@ void main()
 }
 )";
 
-  if (ogl::Info::gles) {
-    fs[9] = vs[9] = '1';
-    fs[10] = vs[10] = '0';
-    fs[11] = vs[11] = '0';
-  }
-  else {
-    fs[9] = vs[9] = '3';
-    fs[10] = vs[10] = '3';
-    fs[11] = vs[11] = '0';
+  const char* version = ogl::get_glsl_version(ogl::Info::gles, ogl::Info::major, ogl::Info::minor);
+  assert(version);
+
+  for (uint8_t i=0; i < 15; ++i) {
+    fs[i] = vs[i] = version[i];
   }
 
   spec.shader.vs = vs;
