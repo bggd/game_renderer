@@ -23,7 +23,7 @@ void Renderer::set_uniform_matrix4(const PipelineSpec::Shader::Uniform& u, const
 void Renderer::set_vbo(uint8_t idx, ogl::VBO vbo)
 {
   size_t size = idx+1;
-  if (size > this->vbo_list.capacity()) { this->vbo_list.reserve(size); }
+  if (size > this->vbo_list.capacity()) { this->vbo_list.resize(size); }
   this->vbo_list[idx] = vbo;
 }
 
