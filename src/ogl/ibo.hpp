@@ -8,6 +8,7 @@ struct IBO {
 
   static void bind_zero();
   static void draw_triangles(GLsizei count);
+  static void draw_lines(GLsizei count);
 
   void create();
   void destroy();

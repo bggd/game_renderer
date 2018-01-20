@@ -13,6 +13,11 @@ void IBO::draw_triangles(GLsizei count)
   glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, NULL);
 }
 
+void IBO::draw_lines(GLsizei count)
+{
+  glDrawElements(GL_LINES, count, GL_UNSIGNED_SHORT, NULL);
+}
+
 void IBO::create()
 {
   assert(this->id == 0);
