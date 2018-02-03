@@ -17,6 +17,11 @@ void Renderer::set_ibo(ogl::IBO ibo)
   this->ibo = ibo;
 }
 
+void Renderer::draw_lines(uint16_t count)
+{
+  ogl::IBO::draw_lines(count);
+}
+
 void Renderer::draw_triangles(uint16_t first, uint16_t count, bool use_ibo)
 {
   if (use_ibo) { ogl::IBO::draw_triangles(count); }

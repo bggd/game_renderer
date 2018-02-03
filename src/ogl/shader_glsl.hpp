@@ -19,10 +19,10 @@ struct ShaderGLSL {
 
   bool link();
 
-  void use();
+  void use() const;
 
-  GLint get_uniform_location(const char* name);
-  void uniform_mat4(GLint location, GLsizei count, const GLfloat* v);
+  GLint get_uniform_location(const char* name) const;
+  void uniform_mat4(GLint location, GLsizei count, const GLfloat* v) const;
 
 };
 

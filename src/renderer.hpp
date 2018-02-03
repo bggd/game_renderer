@@ -12,6 +12,7 @@ struct Renderer {
   void bind_vertex_attributes(const PipelineSpec* spec, bool use_ibo=false);
   void set_uniform_matrix4(const PipelineSpec::Shader::Uniform& u, const GLfloat* elements);
 
+  void draw_lines(uint16_t count);
   void draw_triangles(uint16_t first, uint16_t count, bool use_ibo=false);
 
 };

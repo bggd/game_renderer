@@ -7,7 +7,6 @@ PipelineSpec* PipelineSpec::get_default_2d()
   size_t stride = sizeof(GLfloat)*4;
 
   PipelineSpec::VertexAttribute pos;
-  pos.vbo_list_idx = 0;
   pos.index = 0;
   pos.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   pos.stride = stride;
@@ -15,7 +14,6 @@ PipelineSpec* PipelineSpec::get_default_2d()
   pos.name = "pos";
 
   PipelineSpec::VertexAttribute uv;
-  uv.vbo_list_idx = 0;
   uv.index = 1;
   uv.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   uv.stride = stride;
@@ -98,7 +96,6 @@ PipelineSpec* PipelineSpec::get_default_3d()
   size_t stride = sizeof(GLfloat)*5;
 
   PipelineSpec::VertexAttribute pos;
-  pos.vbo_list_idx = 0;
   pos.index = 0;
   pos.format = PipelineSpec::VertexAttribute::Format::FLOAT3;
   pos.stride = stride;
@@ -106,7 +103,6 @@ PipelineSpec* PipelineSpec::get_default_3d()
   pos.name = "pos";
 
   PipelineSpec::VertexAttribute uv;
-  uv.vbo_list_idx = 0;
   uv.index = 1;
   uv.format = PipelineSpec::VertexAttribute::Format::FLOAT2;
   uv.stride = stride;
@@ -184,6 +180,8 @@ void main()
 
 bool PipelineSpec::compile_shader()
 {
+  assert(!this->compiled);
+
   this->shader.glsl.create_program();
 
   if (!this->shader.glsl.compile_vert(this->shader.vs)) { return false; }

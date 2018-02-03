@@ -24,6 +24,11 @@ void VBO::draw_triangles(GLint first, GLsizei count)
   glDrawArrays(GL_TRIANGLES, first, count);
 }
 
+void VBO::draw_lines(GLint first, GLsizei count)
+{
+  glDrawArrays(GL_LINES, first, count);
+}
+
 void VBO::create()
 {
   assert(this->id == 0);
@@ -55,6 +60,12 @@ void VBO::buffer_data(size_t size, const void* vertices, GLenum usage)
 {
   assert(VBO::current_id == this->id);
   glBufferData(GL_ARRAY_BUFFER, size, vertices, usage);
+}
+
+void VBO::buffer_sub_data(size_t offset, size_t size, const void* vertices)
+{
+  assert(VBO::current_id == this->id);
+  glBufferSubData(GL_ARRAY_BUFFER, offset, size, vertices);
 }
 
 }} // namespace grndr::ogl

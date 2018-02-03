@@ -8,7 +8,7 @@
 #include "ogl/shader_glsl.hpp"
 
 #include "pipeline_spec.hpp"
-#include "renderer.hpp"
+#include "gl_state.hpp"
 
 
 #ifdef GAME_RENDERER_IMPLEMENTATION
@@ -19,5 +19,5 @@
 #include "ogl/shader_glsl.cpp"
 
 #include "pipeline_spec.cpp"
-#include "renderer.cpp"
+#include "gl_state.cpp"
 #endif

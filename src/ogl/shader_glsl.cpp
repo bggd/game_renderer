@@ -98,17 +98,17 @@ bool ShaderGLSL::link()
   return true;
 }
 
-void ShaderGLSL::use()
+void ShaderGLSL::use() const
 {
   glUseProgram(this->prog);
 }
 
-GLint ShaderGLSL::get_uniform_location(const char* name)
+GLint ShaderGLSL::get_uniform_location(const char* name) const
 {
   return glGetUniformLocation(this->prog, name);
 }
 
-void ShaderGLSL::uniform_mat4(GLint location, GLsizei count, const GLfloat* v)
+void ShaderGLSL::uniform_mat4(GLint location, GLsizei count, const GLfloat* v) const
 {
   glUniformMatrix4fv(location, count, GL_FALSE, v);
 }

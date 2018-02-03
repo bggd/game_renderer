@@ -10,16 +10,17 @@ struct PipelineSpec {
         MAT4
       };
 
-      int32_t location;
+      int32_t location = -1;
       Uniform::Type type;
-      const char* name;
+      const char* name = nullptr;
 
     };
 
-    const char* vs;
-    const char* fs;
-    const char* glFragColor;
     ogl::ShaderGLSL glsl;
+    const char* vs = nullptr;
+    const char* fs = nullptr;
+    const char* glFragColor = nullptr;
+
   };
 
   struct VertexAttribute {
@@ -29,13 +30,13 @@ struct PipelineSpec {
       FLOAT3
     };
 
-    uint8_t vbo_list_idx;
+    uint8_t vbo_slot = 0;
     uint8_t index;
     VertexAttribute::Format format;
-    bool normalized;
+    bool normalized = false;
     size_t stride;
-    size_t offset;
-    const char* name;
+    size_t offset = 0;
+    const char* name = nullptr;
   };
 
   std::vector<PipelineSpec::VertexAttribute> attributes;
